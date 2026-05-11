@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geometría en el Espacio: Fórmulas y Aplicaciones</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: #f1f5f9;
+            display: grid;
+            gap: 40px;
+            grid-template-columns: 1fr;
+            place-items: center;
+            padding: 40px 0;
+        }
+
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            background-color: #fffdf5; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+            font-family: 'DM Sans', sans-serif;
+            border-radius: 4px;
+        }
+
+        .slide-container::after {
+            content: '';
+            position: absolute;
+            bottom: 20px;
+            left: 60px;
+            width: 100px;
+            height: 4px;
+            background-color: #005088;
+        }
+
+        .content-area {
+            flex-grow: 1;
+            width: 100%;
+            padding: 0 60px 60px 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            z-index: 1;
+        }
+
+        h1 { font-family: 'Merriweather', serif; font-size: 80px; color: #ffffff; margin: 0; }
+        .slide-title { font-family: 'Merriweather', serif; font-size: 48px; color: #005088; margin-bottom: 40px; padding: 60px 0 0 60px; }
+        h3 { font-family: 'Merriweather', serif; font-size: 32px; color: #005088; margin-bottom: 15px; }
+        p { font-size: 20px; line-height: 1.6; color: #334155; }
+
+        .title-layout { height: 100%; background-color: #005088; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        .section-title-layout { height: 100%; background-color: #f3f0df; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        .section-title-layout hr { width: 150px; height: 8px; background-color: #11caa0; border: none; margin: 30px 0; }
+
+        .two-column { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+        .tile { background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 40px; }
+        
+        .formula-box { 
+            background-color: #f8fafc; 
+            border-left: 6px solid #11caa0; 
+            padding: 25px; 
+            font-family: 'serif'; 
+            font-size: 32px; 
+            text-align: center;
+        }
+
+        .img-placeholder {
+            width: 100%;
+            height: 350px;
+            border-radius: 12px;
+            object-fit: cover;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .icon-tile { flex: 1; background: white; padding: 40px; text-align: center; border-radius: 15px; border-bottom: 4px solid #11caa0; }
+        .icon-tile i { font-size: 50px; color: #005088; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+
+<div class="slide-container">
+    <div class="title-layout">
+        <h1>Geometría en el Espacio</h1>
+        <p style="color: #11caa0; font-size: 32px; margin-top: 20px;">Manual de Fórmulas y Aplicaciones Reales</p>
+    </div>
+</div>
+
+<div class="slide-container">
+    <div class="section-title-layout">
+        <hr>
+        <h2 style="font-size: 60px; color: #005088;">1. La Recta</h2>
+        <p>El rastreador de trayectorias</p>
+    </div>
+</div>
+
+<div class="slide-container">
+    <h2 class="slide-title">Ecuaciones Paramétricas</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div class="tile">
+                <div class="formula-box">
+                    x = x₀ + at<br>
+                    y = y₀ + bt<br>
+                    z = z₀ + ct
+                </div>
+                <p style="margin-top: 20px;"><strong>Uso:</strong> Localización exacta de un objeto en movimiento.</p>
+                <p><strong>¿Por qué?:</strong> Permite desglosar el movimiento en 3 ejes independientes usando el tiempo (t).</p>
+            </div>
+            <img src="https://images.unsplash.com/photo-1506947411487-a56738267384?auto=format&fit=crop&q=80&w=600" class="img-placeholder" alt="Trayectoria Dron">
+        </div>
+    </div>
+</div>
+
+<div class="slide-container">
+    <div class="section-title-layout">
+        <hr>
+        <h2 style="font-size: 60px; color: #005088;">2. El Plano</h2>
+        <p>La constructora de paredes</p>
+    </div>
+</div>
+
+<div class="slide-container">
+    <h2 class="slide-title">Ecuación General del Plano</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div class="tile">
+                <div class="formula-box">
+                    Ax + By + Cz + D = 0
+                </div>
+                <p style="margin-top: 20px;"><strong>Uso:</strong> Definir superficies rígidas y fronteras.</p>
+                <p><strong>¿Por qué?:</strong> El vector normal (A, B, C) garantiza que la superficie sea plana y tenga una orientación fija.</p>
+            </div>
+            <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&q=80&w=600" class="img-placeholder" alt="Geometría Abstracta">
+        </div>
+    </div>
+</div>
+
+<div class="slide-container">
+    <div class="section-title-layout">
+        <hr>
+        <h2 style="font-size: 60px; color: #005088;">3. Distancias</h2>
+        <p>El detector de colisiones</p>
+    </div>
+</div>
+
+<div class="slide-container">
+    <h2 class="slide-title">Punto a un Plano</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div class="tile">
+                <div class="formula-box" style="font-size: 24px;">
+                    d = |Ax₀ + By₀ + Cz₀ + D| / √(A² + B² + C²)
+                </div>
+                <p style="margin-top: 20px;"><strong>Uso:</strong> Prevención de impactos en software y robótica.</p>
+                <p><strong>¿Por qué?:</strong> Calcula la separación mínima necesaria para que un objeto no choque contra una pared.</p>
+            </div>
+            <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&q=80&w=600" class="img-placeholder" alt="Robot">
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
