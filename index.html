@@ -3,169 +3,341 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Geometría en el Espacio: Fórmulas y Aplicaciones</title>
+    <title>Geometría en el Espacio 3D</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;600;700&family=Playfair+Display:ital,wght=0,700;1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-
-        body {
-            background-color: #f1f5f9;
-            display: grid;
-            gap: 40px;
-            grid-template-columns: 1fr;
-            place-items: center;
-            padding: 40px 0;
-        }
+        /* 1. CONFIGURACIÓN BASE - ESTILO CONSULTORÍA MODERNA */
+        * { box-sizing: border-box; }
+        body { background-color: #f1f5f9; display: grid; gap: 30px; grid-template-columns: 1fr; margin: 0; min-height: 100vh; padding: 40px 0; place-items: center; }
 
         .slide-container {
-            width: 1280px;
-            height: 720px;
-            background-color: #fffdf5; 
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            align-items: center;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
             display: flex;
             flex-direction: column;
+            font-family: 'Urbanist', sans-serif;
+            height: 720px;
+            justify-content: center;
             overflow: hidden;
+            padding: 60px;
             position: relative;
-            font-family: 'DM Sans', sans-serif;
-            border-radius: 4px;
+            width: 1280px;
+        }
+
+        /* DISEÑO DE FONDO ABSTRACTO */
+        .slide-container::before {
+            content: '';
+            position: absolute;
+            top: -10%;
+            right: -5%;
+            width: 400px;
+            height: 400px;
+            background: linear-gradient(135deg, rgba(30, 64, 175, 0.05) 0%, transparent 80%);
+            border-radius: 50%;
+            z-index: 0;
         }
 
         .slide-container::after {
             content: '';
             position: absolute;
-            bottom: 20px;
-            left: 60px;
-            width: 100px;
-            height: 4px;
-            background-color: #005088;
+            bottom: -10%;
+            left: -5%;
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(315deg, rgba(212, 175, 55, 0.08) 0%, transparent 80%);
+            border-radius: 50%;
+            z-index: 0;
         }
 
-        .content-area {
-            flex-grow: 1;
-            width: 100%;
-            padding: 0 60px 60px 60px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            z-index: 1;
-        }
+        .slide-container > * { position: relative; z-index: 1; }
 
-        h1 { font-family: 'Merriweather', serif; font-size: 80px; color: #ffffff; margin: 0; }
-        .slide-title { font-family: 'Merriweather', serif; font-size: 48px; color: #005088; margin-bottom: 40px; padding: 60px 0 0 60px; }
-        h3 { font-family: 'Merriweather', serif; font-size: 32px; color: #005088; margin-bottom: 15px; }
-        p { font-size: 20px; line-height: 1.6; color: #334155; }
+        /* 2. TIPOGRAFÍA REFINADA */
+        h1, .slide-title { color: #0f172a; font-family: 'Playfair Display', serif; font-weight: 700; }
+        h1 { font-size: 82px; margin: 0; line-height: 1; }
+        .slide-title { font-size: 44px; margin-bottom: 40px; text-align: left; width: 100%; border-left: 6px solid #1e40af; padding-left: 20px; }
+        h3 { color: #1e40af; font-size: 30px; margin-bottom: 15px; font-weight: 600; }
+        p, li { color: #475569; font-size: 20px; line-height: 1.6; }
 
-        .title-layout { height: 100%; background-color: #005088; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
-        .section-title-layout { height: 100%; background-color: #f3f0df; display: flex; flex-direction: column; justify-content: center; align-items: center; }
-        .section-title-layout hr { width: 150px; height: 8px; background-color: #11caa0; border: none; margin: 30px 0; }
-
-        .two-column { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
-        .tile { background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 40px; }
+        /* 3. LAYOUTS ESPECÍFICOS */
+        .content-area { display: flex; flex-direction: column; flex-grow: 1; justify-content: center; width: 100%; }
         
-        .formula-box { 
-            background-color: #f8fafc; 
-            border-left: 6px solid #11caa0; 
-            padding: 25px; 
-            font-family: 'serif'; 
-            font-size: 32px; 
-            text-align: center;
-        }
+        .title-layout { text-align: center; }
+        .subtitle { font-size: 28px; color: #64748b; margin-top: 20px; font-weight: 300; text-transform: uppercase; letter-spacing: 4px; }
 
-        .img-placeholder {
-            width: 100%;
-            height: 350px;
-            border-radius: 12px;
-            object-fit: cover;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
+        .section-title-layout { text-align: center; }
+        .section-title-layout h2 { font-size: 68px; font-family: 'Playfair Display', serif; color: #0f172a; }
+        .accent-line { background: #1e40af; height: 4px; margin: 30px auto; width: 80px; }
 
-        .icon-tile { flex: 1; background: white; padding: 40px; text-align: center; border-radius: 15px; border-bottom: 4px solid #11caa0; }
-        .icon-tile i { font-size: 50px; color: #005088; margin-bottom: 20px; }
+        .two-column { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; width: 100%; align-items: center; }
+        
+        .image-wrapper { border-radius: 16px; height: 400px; overflow: hidden; width: 100%; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .image-wrapper img { height: 100%; object-fit: cover; width: 100%; }
+        .image-right-text-left img { object-fit: contain; background: #f8fafc; }
+
+        /* Estilo para Fórmulas */
+        .formula-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; margin: 20px 0; padding: 25px; text-align: center; }
+        math { font-size: 26px; color: #0f172a; }
+
+        /* Tablas y Listas */
+        .bullet-list { list-style: none; padding: 0; }
+        .bullet-list li { margin-bottom: 20px; padding-left: 40px; position: relative; }
+        .bullet-list i { color: #1e40af; font-size: 24px; left: 0; position: absolute; top: 4px; }
+
+        .table-layout table { border-collapse: collapse; width: 100%; }
+        .table-layout th { background: #f1f5f9; border-bottom: 2px solid #1e40af; color: #0f172a; padding: 20px; text-align: left; }
+        .table-layout td { border-bottom: 1px solid #e2e8f0; padding: 15px 20px; }
+
+        .tiled-content { display: flex; gap: 30px; width: 100%; }
+        .image-tile { flex: 1; text-align: center; }
+        .image-tile .image-wrapper { height: 260px; margin-bottom: 15px; }
+
+        /* Q&A */
+        .qa-layout { text-align: center; }
     </style>
 </head>
 <body>
 
-<div class="slide-container">
+<div class="slide-container" id="slide1">
     <div class="title-layout">
-        <h1>Geometría en el Espacio</h1>
-        <p style="color: #11caa0; font-size: 32px; margin-top: 20px;">Manual de Fórmulas y Aplicaciones Reales</p>
+        <p class="subtitle">Análisis Geométrico</p>
+        <h1>Rectas y Planos en el Espacio 3D</h1>
+        <div class="accent-line"></div>
     </div>
 </div>
 
-<div class="slide-container">
+<div class="slide-container" id="slide2">
     <div class="section-title-layout">
-        <hr>
-        <h2 style="font-size: 60px; color: #005088;">1. La Recta</h2>
-        <p>El rastreador de trayectorias</p>
+        <h2>01. Fórmulas de la Recta</h2>
+        <div class="accent-line"></div>
+        <p>Definiendo trayectorias a través de puntos y vectores directores.</p>
     </div>
 </div>
 
-<div class="slide-container">
+<div class="slide-container" id="slide3">
     <h2 class="slide-title">Ecuaciones Paramétricas</h2>
     <div class="content-area">
         <div class="two-column">
-            <div class="tile">
+            <div>
+                <h3>La Recta en función del Tiempo</h3>
+                <p>Permite conocer la posición exacta <math display="math"><mo>(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo>,</mo><mi>z</mi><mo>)</mo></math> de un objeto en cualquier instante <math display="math"><mi>t</mi></math>.</p>
                 <div class="formula-box">
-                    x = x₀ + at<br>
-                    y = y₀ + bt<br>
-                    z = z₀ + ct
+                    <math display="math">
+                        <mtable>
+                            <mtr><mtd><mi>x</mi><mo>=</mo><msub><mi>x</mi><mn>0</mn></msub><mo>+</mo><mi>a</mi><mi>t</mi></mtd></mtr>
+                            <mtr><mtd><mi>y</mi><mo>=</mo><msub><mi>y</mi><mn>0</mn></msub><mo>+</mo><mi>b</mi><mi>t</mi></mtd></mtr>
+                            <mtr><mtd><mi>z</mi><mo>=</mo><msub><mi>z</mi><mn>0</mn></msub><mo>+</mo><mi>c</mi><mi>t</mi></mtd></mtr>
+                        </mtable>
+                    </math>
                 </div>
-                <p style="margin-top: 20px;"><strong>Uso:</strong> Localización exacta de un objeto en movimiento.</p>
-                <p><strong>¿Por qué?:</strong> Permite desglosar el movimiento en 3 ejes independientes usando el tiempo (t).</p>
+                <p><strong>Aplicación:</strong> Trayectorias de drones y misiles en balística.</p>
             </div>
-            <img src="https://images.unsplash.com/photo-1506947411487-a56738267384?auto=format&fit=crop&q=80&w=600" class="img-placeholder" alt="Trayectoria Dron">
+            <div class="image-wrapper">
+                <img src="http://googleusercontent.com/image_collection/image_retrieval/4124814380296037644" alt="Trayectoria de Dron 3D">
+            </div>
         </div>
     </div>
 </div>
 
-<div class="slide-container">
-    <div class="section-title-layout">
-        <hr>
-        <h2 style="font-size: 60px; color: #005088;">2. El Plano</h2>
-        <p>La constructora de paredes</p>
-    </div>
-</div>
-
-<div class="slide-container">
-    <h2 class="slide-title">Ecuación General del Plano</h2>
+<div class="slide-container" id="slide4">
+    <h2 class="slide-title">Ecuaciones Simétricas</h2>
     <div class="content-area">
         <div class="two-column">
-            <div class="tile">
+            <div>
+                <h3>Relación de Proporcionalidad</h3>
+                <p>Se obtiene igualando el parámetro <math display="math"><mi>t</mi></math>. Define la recta como la intersección de dos planos.</p>
                 <div class="formula-box">
-                    Ax + By + Cz + D = 0
+                    <math display="math">
+                        <mfrac>
+                            <mrow><mi>x</mi><mo>-</mo><msub><mi>x</mi><mn>0</mn></msub></mrow>
+                            <mi>a</mi>
+                        </mfrac>
+                        <mo>=</mo>
+                        <mfrac>
+                            <mrow><mi>y</mi><mo>-</mo><msub><mi>y</mi><mn>0</mn></msub></mrow>
+                            <mi>b</mi>
+                        </mfrac>
+                        <mo>=</mo>
+                        <mfrac>
+                            <mrow><mi>z</mi><mo>-</mo><msub><mi>z</mi><mn>0</mn></msub></mrow>
+                            <mi>c</mi>
+                        </mfrac>
+                    </math>
                 </div>
-                <p style="margin-top: 20px;"><strong>Uso:</strong> Definir superficies rígidas y fronteras.</p>
-                <p><strong>¿Por qué?:</strong> El vector normal (A, B, C) garantiza que la superficie sea plana y tenga una orientación fija.</p>
+                <p><strong>Aplicación:</strong> Análisis de alineación en ingeniería mecánica y diseño de piezas.</p>
             </div>
-            <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&q=80&w=600" class="img-placeholder" alt="Geometría Abstracta">
+            <div class="image-wrapper image-right-text-left">
+                <img src="http://googleusercontent.com/image_collection/image_retrieval/503651252590412214" alt="Modelo estructural 3D">
+            </div>
         </div>
     </div>
 </div>
 
-<div class="slide-container">
+<div class="slide-container" id="slide5">
     <div class="section-title-layout">
-        <hr>
-        <h2 style="font-size: 60px; color: #005088;">3. Distancias</h2>
-        <p>El detector de colisiones</p>
+        <h2>02. Fórmulas del Plano</h2>
+        <div class="accent-line"></div>
+        <p>Superficies definidas por la ortogonalidad de un vector normal.</p>
     </div>
 </div>
 
-<div class="slide-container">
-    <h2 class="slide-title">Punto a un Plano</h2>
+<div class="slide-container" id="slide6">
+    <h2 class="slide-title">Ecuación Escalar del Plano</h2>
     <div class="content-area">
         <div class="two-column">
-            <div class="tile">
-                <div class="formula-box" style="font-size: 24px;">
-                    d = |Ax₀ + By₀ + Cz₀ + D| / √(A² + B² + C²)
+            <div>
+                <h3>Definición por Punto y Normal</h3>
+                <p>Basada en que el producto punto entre la normal y cualquier vector del plano es nulo.</p>
+                <div class="formula-box">
+                    <math display="math">
+                        <mi>A</mi><mo>(</mo><mi>x</mi><mo>-</mo><msub><mi>x</mi><mn>0</mn></msub><mo>)</mo>
+                        <mo>+</mo>
+                        <mi>B</mi><mo>(</mo><mi>y</mi><mo>-</mo><msub><mi>y</mi><mn>0</mn></msub><mo>)</mo>
+                        <mo>+</mo>
+                        <mi>C</mi><mo>(</mo><mi>z</mi><mo>-</mo><msub><mi>z</mi><mn>0</mn></msub><mo>)</mo>
+                        <mo>=</mo><mn>0</mn>
+                    </math>
                 </div>
-                <p style="margin-top: 20px;"><strong>Uso:</strong> Prevención de impactos en software y robótica.</p>
-                <p><strong>¿Por qué?:</strong> Calcula la separación mínima necesaria para que un objeto no choque contra una pared.</p>
+                <p><strong>Aplicación:</strong> Cálculo de superficies en arquitectura y diseño de techos.</p>
             </div>
-            <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&q=80&w=600" class="img-placeholder" alt="Robot">
+            <div class="image-wrapper">
+                <img src="http://googleusercontent.com/image_collection/image_retrieval/1925827279426147848" alt="Vector Normal y Plano">
+            </div>
         </div>
+    </div>
+</div>
+
+<div class="slide-container" id="slide7">
+    <h2 class="slide-title">Ecuación General</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div>
+                <h3>La Forma Estándar</h3>
+                <p>Representación simplificada donde <math display="math"><mi>D</mi></math> representa la distancia orientada al origen.</p>
+                <div class="formula-box">
+                    <math display="math">
+                        <mi>A</mi><mi>x</mi><mo>+</mo>
+                        <mi>B</mi><mi>y</mi><mo>+</mo>
+                        <mi>C</mi><mi>z</mi><mo>+</mo>
+                        <mi>D</mi><mo>=</mo><mn>0</mn>
+                    </math>
+                </div>
+                <p><strong>Aplicación:</strong> Motores de renderizado y detección de colisiones en entornos 3D.</p>
+            </div>
+            <div class="image-wrapper">
+                <img src="http://googleusercontent.com/image_collection/image_retrieval/6936115038949192490" alt="Ray Tracing y Planos">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container" id="slide8">
+    <h2 class="slide-title">Ángulo entre dos Planos</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div>
+                <h3>Relación de Normales</h3>
+                <p>El ángulo entre dos planos es igual al ángulo formado por sus vectores normales.</p>
+                <div class="formula-box">
+                    <math display="math">
+                        <mi>cos</mi><mi>&theta;</mi><mo>=</mo>
+                        <mfrac>
+                            <mrow><mo>|</mo><msub><mover><mi>n</mi><mo>→</mo></mover><mn>1</mn></msub><mo>&sdot;</mo><msub><mover><mi>n</mi><mo>→</mo></mover><mn>2</mn></|
+                            <mrow><mo>||</mo><msub><mover><mi>n</mi><mo>→</mo></mover><mn>1</mn></mo><mo>||</mo><mo>||</mo><msub><mover><mi>n</mi><mo>→</mo></mover><mn>2</mn></mo></label></mrow>
+                        </mfrac>
+                    </math>
+                </div>
+                <p><strong>Aplicación:</strong> Instalación de paneles solares para maximizar la absorción de luz solar.</p>
+            </div>
+            <div class="image-wrapper">
+                <img src="http://googleusercontent.com/image_collection/image_retrieval/3479428581124068045" alt="Paneles Solares e Inclinación">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container" id="slide9">
+    <h2 class="slide-title">Impacto en la Ingeniería</h2>
+    <div class="content-area">
+        <div class="tiled-content">
+            <div class="image-tile">
+                <div class="image-wrapper"><img src="http://googleusercontent.com/image_collection/image_retrieval/13160587684175211655" alt="Robótica Industrial"></div>
+                <p><strong>Robótica:</strong> Programación de coordenadas cartesianas para brazos mecánicos.</p>
+            </div>
+            <div class="image-tile">
+                <div class="image-wrapper"><img src="http://googleusercontent.com/image_collection/image_retrieval/6936115038949192490" alt="Videojuegos"></div>
+                <p><strong>Ray Tracing:</strong> Simulación de luz mediante intersecciones de rectas y planos.</p>
+            </div>
+            <div class="image-tile">
+                <div class="image-wrapper"><img src="http://googleusercontent.com/image_collection/image_retrieval/503651252590412214" alt="Construcción"></div>
+                <p><strong>Estructuras:</strong> Cálculo de esfuerzos en vigas y superficies arquitectónicas.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container" id="slide10">
+    <h2 class="slide-title">Cuadro Resumen de Fórmulas</h2>
+    <div class="content-area">
+        <div class="table-layout">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Elemento</th>
+                        <th>Tipo de Ecuación</th>
+                        <th>Fórmula Matemática</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Recta 3D</td>
+                        <td>Paramétrica</td>
+                        <td><math display="math"><mi>x</mi><mo>=</mo><msub><mi>x</mi><mn>0</mn></msub><mo>+</mo><mi>a</mi><mi>t</mi><mo>...</mo></math></td>
+                    </tr>
+                    <tr>
+                        <td>Recta 3D</td>
+                        <td>Simétrica</td>
+                        <td><math display="math"><mfrac><mrow><mi>x</mi><mo>-</mo><msub><mi>x</mi><mn>0</mn></msub></mrow><mi>a</mi></mfrac><mo>=</mo><mo>...</mo></math></td>
+                    </tr>
+                    <tr>
+                        <td>Plano 3D</td>
+                        <td>Escalar</td>
+                        <td><math display="math"><mi>A</mi><mo>(</mo><mi>x</mi><mo>-</mo><msub><mi>x</mi><mn>0</mn></msub><mo>)</mo><mo>+</mo><mo>...</mo><mo>=</mo><mn>0</mn></math></td>
+                    </tr>
+                    <tr>
+                        <td>Plano 3D</td>
+                        <td>General</td>
+                        <td><math display="math"><mi>A</mi><mi>x</mi><mo>+</mo><mi>B</mi><mi>y</mi><mo>+</mo><mi>C</mi><mi>z</mi><mo>+</mo><mi>D</mi><mo>=</mo><mn>0</mn></math></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container" id="slide11">
+    <div class="content-area">
+        <div class="bullet-list" style="max-width: 800px; margin: 0 auto;">
+            <ul>
+                <li><i class="fa-solid fa-check-circle"></i> La recta requiere un <strong>Punto</strong> y un <strong>Vector Director</strong>.</li>
+                <li><i class="fa-solid fa-check-circle"></i> El plano requiere un <strong>Punto</strong> y un <strong>Vector Normal</strong>.</li>
+                <li><i class="fa-solid fa-check-circle"></i> Las aplicaciones varían desde el <strong>GPS</strong> hasta el diseño de <strong>Videojuegos</strong> modernos.</li>
+                <li><i class="fa-solid fa-check-circle"></i> El dominio de estas fórmulas es esencial para cualquier rama de la <strong>Ingeniería</strong>.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="slide-container" id="slide12">
+    <div class="qa-layout">
+        <h1>¿Preguntas?</h1>
+        <div class="accent-line"></div>
+        <p>¡Gracias por su atención en esta exposición!</p>
+        <p style="margin-top: 50px; font-weight: 600;">Tema: Rectas y Planos en el Espacio 3D</p>
     </div>
 </div>
 
